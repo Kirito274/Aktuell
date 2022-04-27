@@ -43,7 +43,6 @@ function aufgabe5() {
   console.debug(groesseInMeter);
   console.debug(amLeben);
 }
-
 /**
  * Hauptfunktion, in der die Aufgaben aufgerufen werden
  */
