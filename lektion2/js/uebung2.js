@@ -2,7 +2,7 @@
  * Uebung 2: Arrays
  */
 
-/**v
+/**
  * 1) Erstelle das Array.
  */
 function aufgabe1() {
