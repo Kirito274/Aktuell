@@ -1,6 +1,6 @@
 /**
  * Uebung 2: Arrays
- */
+ */test
 
 /**
  * 1) Erstelle das Array.
