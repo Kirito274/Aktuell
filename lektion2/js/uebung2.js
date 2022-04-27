@@ -11,7 +11,6 @@ function aufgabe1() {
     //ToDo: füge ab hier Deinen Code ein
     console.debug(laender)
 }
-
 /**
  * 2) Gebe die Laenge des Arrays aus.
  */
