@@ -9,6 +9,7 @@ function aufgabe1() {
     console.debug("Aufgabe 1 ==========================");
 
     //ToDo: füge ab hier Deinen Code ein
+    let laender = ["USA", "Spanien", "Frankreich", "Deutschland", "Japan"]
     console.debug(laender)
 }
 /**
