@@ -1,6 +1,6 @@
 /**
  * Uebung 2: Arrays
- */test
+ */
 
 /**
  * 1) Erstelle das Array.
@@ -10,7 +10,15 @@ function aufgabe1() {
 
     //ToDo: füge ab hier Deinen Code ein
     let laender = ["USA", "Spanien", "Frankreich", "Deutschland", "Japan"]
+   laender[0] = "USA"
+    laender[1] = "Spanien"
+    laender[2] = "Frankreich"
+    laender[3] = "Deutschland"
+   laender[4] = "Japan"
     console.debug(laender)
+    console.debug(laender[5])
+    console.debug(laender.length)
+
 }
 /**
  * 2) Gebe die Laenge des Arrays aus.
