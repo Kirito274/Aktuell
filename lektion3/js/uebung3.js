@@ -9,7 +9,13 @@ function aufgabe1() {
   console.debug("Aufgabe 1 ==========================");
 
   //ToDo: füge ab hier Deinen Code ein
-
+let pizza = {
+  pizza: "Meine lieblingspizza",
+  art: "Doppel Salami",
+  belag: ["Salami, Käse"],
+  skala: 10,
+  gerneIsst: true
+}
   console.debug(pizza)
 }
 
@@ -26,9 +32,9 @@ function aufgabe2() {
   }
 
   //ToDo: füge ab hier in den debugs Deinen Code ein
-  console.debug()
-  console.debug()
-  console.debug()
+  console.debug(Object.keys(ghibli))
+  console.debug(Object.values(ghibli))
+  console.debug(Object.entries(ghibli))
 }
 
 /**
@@ -38,7 +44,22 @@ function aufgabe3() {
   console.debug("Aufgabe 3 ==========================");
 
   //ToDo: füge ab hier Deinen Code ein
-
+  let kuenstler = {
+    Name: "Avril Lavigne",
+    Alter: "37 Jahre",
+    Wohnort: "Los Angeles",
+    Beruf: "Sängerin",
+    Genre: "Rock und Pop",
+    Erstes_Album: "4.Juni 2002",
+    Name_des_Albums: "Let Go",
+    Beziehungsstatus: "Verheiratet",
+    Live_Albums: "1",
+    Musik_Videos: "39",
+    Singles: "32",
+    Studio_Ablums: "7",
+    Songs_insgesamt: "91",
+    Danke: "Aufgabe hat Spaß gemacht"
+  }
   for (let key of Object.keys(kuenstler)) {
     console.debug(key + ": " + kuenstler[key])
   }
