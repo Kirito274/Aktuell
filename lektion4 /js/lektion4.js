@@ -70,6 +70,7 @@ let milchProdukte = ["Milch", "Joghurt", "Sahne"]
  */
 function zusatz_indexOf() {
     // ToDo: füge ab hier deinen Code ein
+let einkaufsliste = ["Tofu", "Milch", "Butter", "Honig"]
 
 }
 
