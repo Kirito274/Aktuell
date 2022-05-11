@@ -1,4 +1,5 @@
 import Artikel from "./Artikel.js"
+import artikel from "./Artikel.js";
 
 /**
  * Klasse zum Gruppieren der Artikel
@@ -29,7 +30,15 @@ class Gruppe {
    */
   artikelFinden(suchName, meldungAusgeben) {
     // TODO: füge hier Deinen Code ein
-
+for (let artikel of this.artikelListe){
+  if (artikel.name == suchName){
+    return artikel
+  }
+}
+if(meldungAusgeben){
+  console.warn("Artikel nicht gefunden", suchName)
+}
+return null
   }
 
   /**
@@ -38,7 +47,12 @@ class Gruppe {
    */
   artikelAuflisten(gekauft) {
     // TODO: füge hier Deinen Code ein
-
+for (let artikel of this.artikeAuflisten){
+  if (artikel.gekauft == true){
+    return artikel
+  }
+}
+return null
   }
 
   /**
@@ -48,7 +62,7 @@ class Gruppe {
    */
   artikelHinzufuegen(name) {
     // TODO: doppelte Artikel abfangen!
-    let neuerArtikel = new Artikel(name)
+    let neuerArtikel = new Artikel(name, this.artikelListe.length)
     this.artikelListe.push(neuerArtikel)
     return neuerArtikel
   }
@@ -59,8 +73,19 @@ class Gruppe {
    */
   artikelEntfernen(name) {
     // TODO: Artikel finden, position ermitteln
-    let position = 0;
+     let position = 0;
     this.artikelListe.splice(position , 1)
-  }
 
+
+  }
 }
+
+function main(){
+  let zahl = 0
+  let gruppe = new Gruppe("produktGruppe1", 0)
+  gruppe.artikelHinzufuegen(artikel)
+  console.debug(gruppe.artikelListe)
+  gruppe.artikelFinden("Fisch")
+  gruppe.artikelFinden("Spielzeug", true)
+}
+main()
