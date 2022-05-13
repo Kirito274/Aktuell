@@ -76,7 +76,6 @@ return null
      let position = 0;
     this.artikelListe.splice(position , 1)
 
-
   }
 }
 
