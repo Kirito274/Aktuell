@@ -1,51 +1,77 @@
-import {gruppenListe} from "../lektion6/js/lektion6.js";
-import Artikel from "../src/model/Artikel.js";
+import Gruppe from './Gruppe.js'
 
-class shopping{
-    gruppenListe
-    aktiveGruppe
-}
-function gruppeFinden (gruppenName){
-    let gruppenIndex = gruppenListe.indexOf(gruppenName)
-    if (gruppenIndex == -1){
-        console.warn("Gruppe" + gruppenName + " nicht gefunden")
+class Shopping {
+    gruppenListe = []
+    aktiveGruppe = null
+    meldungenAusgeben = true
+
+    gruppeFinden(suchName, meldungAusgeben) {
+        for (let gruppe of this.gruppenListe) {
+            if (gruppe.name == suchName) {
+                return gruppe
+            }
+        }
+        if (meldungAusgeben) {
+            this.informieren("[App] Gruppe \"" + name + "\" nicht gefunden", true)
+        }
         return null
-    }else {
-        return gruppenListe [gruppenIndex]
+    }
+
+    gruppeHinzufuegen(name) {
+        let vorhandeneGruppe = this.gruppeFinden(name)
+        if (vorhandeneGruppe == null) {
+            let neueGruppe = new Gruppe(name, this.gruppenListe.length)
+            this.gruppenListe.push(neueGruppe)
+            this.aktiveGruppe = neueGruppe
+            this.informieren("[App] Gruppe \"" + name + "\" hinzugefügt")
+            return neueGruppe
+        } else {
+            this.informieren("[App] Gruppe \"" + name + "\" existiert schon!", true)
+        }
+    }
+
+    gruppeEntfernen(name) {
+        let loeschGruppe = this.gruppeFinden(name)
+        if (loeschGruppe) {
+            let index = this.gruppenListe.indexOf(loeschGruppe)
+            this.gruppenListe.splice(index, 1)
+            this.informieren("[App] Gruppe \"" + name + "\" entfernt"
+            )
+        } else {
+            this.informieren("[App] Gruppe \"" + name + "\" konnte NICHT entfernt werden!", true)
+        }
+
+    }
+
+    gruppeUmbenennen(alterName, neuerName) {
+        let suchGruppe = this.gruppeFinden(alterName, true)
+        if (suchGruppe) {
+            suchGruppe.name = neuerName
+            this.informieren("[App] Gruppe \"" + alterName + "\" umbenannt in \"" + neuerName + "\"")
+        }
+    }
+
+    allesAuflisten() {
+        console.debug("Einkaufsliste")
+        console.debug("--------------------")
+        for (const gruppe of this.gruppenListe) {
+            console.debug("[" + gruppe.name + "]")
+            gruppe.artikelAuflisten(true)
+        }
+    }
+
+    informieren(nachricht, istWarnung = false) {
+        if (this.meldungenAusgeben) {
+            if (istWarnung) {
+                console.log(nachricht)
+            } else {
+                console.debug(nachricht)
+                // Todo: Speichern
+            }
+        }
     }
 }
 
-function artikelHinzufuegen(name){
+const App = new Shopping()
 
-}
-    let vorhandenerArtikel = this.artikelFinden(name, false)
-    if (!vorhandenerArtikel) {
-        let neuerArtikel = new Artikel(name, this.artikelListe.length)
-        this.artikelListe.push(neuerArtikel)
-        // App.informieren(`[${this.name}] Artikel "${name}" hinzugefügt`)
-        return neuerArtikel
-    } else {
-        // App.informieren(`[${this.name}] Artikel "${name}" existiert schon!`, true)
-    }
-
-
-function gruppeUmbenennen (alterName, neuerName){
-    let vorhandeneGruppe = gruppeFinden(alterName)
-    if (vorhandeneGruppe != null){
-        let gruppenIndex = gruppenListe.indexOf(alterName)
-        gruppenListe [gruppenIndex] = neuerName
-    }
-    console.debug("Gruppe wurde von " + alterName + " nach " + neuerName + " umbenannt")
-}
-
-function gruppeEntfernen (gruppenName){
-    let entfernGruppe = gruppeFinden(gruppenName)
-    if (gruppeFinden != null){
-        let gruppenIndex = gruppenListe.indexOf(gruppenName)
-        gruppenListe.splice(gruppenIndex,1)
-        console.debug("Gruppe"  +  gruppenName + " wurde entfernt")
-    }else {
-        console.warn("Gruppe"  + gruppenName + " konnte NICHT entfernt werden")
-    }
-}
-export {}
+export default App

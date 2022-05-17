@@ -88,7 +88,7 @@ class Shopping {
     console.debug("--------------------")
     for (const gruppe of this.gruppenListe) {
       console.debug("[" + gruppe.name + "]")
-      gruppe.artikelAuflisten(false)
+      gruppe.artikelAuflisten(true)
     }
   }
 

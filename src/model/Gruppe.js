@@ -71,7 +71,7 @@ class Gruppe {
 
   /**
    * Entfernt einen Artikel aus der ArtikelListe
-   * @param {String} name - Index des zu entfernenden Artikels
+   * @param {String} name - Name des zu entfernenden Artikels
    */
   artikelEntfernen(name) {
     let loeschArtikel = this.artikelFinden(name)
