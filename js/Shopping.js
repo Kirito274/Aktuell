@@ -11,6 +11,7 @@ class Shopping {
                 return gruppe
             }
         }
+
         if (meldungAusgeben) {
             this.informieren("[App] Gruppe \"" + name + "\" nicht gefunden", true)
         }
