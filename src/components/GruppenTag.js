@@ -1,33 +1,36 @@
 import React from 'react'
 import ArtikelTag from './ArtikelTag'
+
 class GruppenTag extends React.Component {
     constructor(props) {
         super(props)
     }
+
     render() {
+        const gruppe = this.props.gruppe
+
+        let gruppenHeader = ""
+        if (this.props.gekauft == false) {
+            gruppenHeader = (<dt>
+                <span>{gruppe.name}</span>
+                <i className="material-icons">expand_less</i>
+            </dt>)
+        }
+
+        let artikelArray = []
+        for (const film of gruppe.artikelListe) {
+            if (film.gekauft == this.props.gekauft) {
+                artikelArray.push(<ArtikelTag artikel={film} key={film.id}/>)
+            }
+        }
         return (
             <React.Fragment>
                 {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
-
-                <dt>Obst & Gemüse
-                    <i className="material-icons">expand_less</i>
-                </dt>
-                <dt>Hülsenfrüchte
-                    <i className="material-icons">expand_less</i>
-                </dt>
-                <ArtikelTag name="Karotten"/>
-                <dt>Getreideprodukte
-                    <i className="material-icons">expand_less</i>
-                </dt>
-                <ArtikelTag name="Poree"/>
-                <dt>Milchprodukte
-                    <i className="material-icons">expand_less</i>
-                </dt>
-                <ArtikelTag name="Milch"/>
-                <br/>
-
+                {gruppenHeader}
+                {artikelArray}
             </React.Fragment>
         )
     }
 }
+
 export default GruppenTag

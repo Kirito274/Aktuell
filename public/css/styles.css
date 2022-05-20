@@ -1,6 +1,6 @@
 #root {
     width: 23rem;
-    background-image: url("../img/markt.jpg");
+    background-image: url("../img/Scharzbg.jpeg");
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -13,7 +13,7 @@
     --mdc-theme-secondary: #827717;
 }
 dt {
-    background-color: #7CB342;
+    background-color: #26C0D1;
     color: var(--mdc-theme-on-primary);
 }
 h2, dd {
