@@ -11,8 +11,6 @@ class ShoppingList extends React.Component {
             //füge hier deinen HTML-Code ein
             <div id="container">
                 {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
-                Füge hier Deinen HTML-Code ein<br/>
-
                 <header>
                     <h1>Einkaufsliste</h1>
                     <nav>
@@ -29,7 +27,6 @@ class ShoppingList extends React.Component {
                             <i className="material-icons">expand_less</i>
                         </h2>
                         <dl>
-                            <GruppenTag/>
                             <GruppenTag/>
                         </dl>
                     </section>
