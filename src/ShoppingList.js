@@ -1,11 +1,9 @@
 import React from 'react'
 import GruppenTag from './components/GruppenTag'
-
 class ShoppingList extends React.Component {
     constructor(props) {
         super(props)
     }
-
     render() {
         return (
             //füge hier deinen HTML-Code ein
@@ -18,9 +16,7 @@ class ShoppingList extends React.Component {
                         <button className="material-icons">add_circle</button>
                     </nav>
                 </header>
-
                 <hr/>
-
                 <main>
                     <section>
                         <h2>Einkaufen
@@ -36,13 +32,11 @@ class ShoppingList extends React.Component {
                             <i className="material-icons">expand_less</i>
                         </h2>
                         <dl>
-
                             <dd><label><input type="checkbox"/> <s>Tofu</s></label></dd>
                         </dl>
                     </section>
                 </main>
                 <hr/>
-
                 <footer>
                     <nav>
                         <button>
@@ -56,7 +50,6 @@ class ShoppingList extends React.Component {
                         </button>
                     </nav>
                 </footer>
-
                 <br/>
                 {/*<GruppenTag/>*/}
             </div>
