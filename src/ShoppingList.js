@@ -73,7 +73,6 @@ class ShoppingList extends React.Component {
                 {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
                 <header>
                     <h1>Shoppinglist for Games</h1>
-
                     <label
                         className="mdc-text-field mdc-text-field--filled mdc-text-field--with-trailing-icon mdc-text-field--no-label">
                         <span className="mdc-text-field__ripple"></span>
@@ -85,7 +84,6 @@ class ShoppingList extends React.Component {
                     </label>
                 </header>
                 <hr/>
-
                 <main>
                     <section>
                         <h2>Noch zu kaufen
@@ -106,7 +104,6 @@ class ShoppingList extends React.Component {
                     </section>
                 </main>
                 <hr/>
-
                 <footer>
                     <button className="mdc-button mdc-button--raised">
                         <span className="material-icons">bookmark_add</span>

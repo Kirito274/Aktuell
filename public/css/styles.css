@@ -3,17 +3,17 @@
     background-image: url("../img/Scharzbg.jpeg");
     background-repeat: no-repeat;
     background-position: center center;
-    background-attachment: fixed;
+    background-attachment: inherit;
 }
 #container {
-    opacity: 85%;
+    opacity: 75%;
 }
 :root {
-    --mdc-theme-primary: #33691E;
+    --mdc-theme-primary: #134E92;
     --mdc-theme-secondary: #827717;
 }
 dt {
-    background-color: #26C0D1;
+    background-color: #134E92;
     color: var(--mdc-theme-on-primary);
 }
 h2, dd {
@@ -38,12 +38,12 @@ button.material-icons {
 }
 [type="checkbox"] {
     vertical-align: top;
-    margin-right: 8px;
+    margin-right: 5px;
 }
 dt {
     display: flex;
     font-weight: 500;
-    padding: 3px 5px;
+    padding: 5px 5px;
 }
 dt span {
     width: 100%;
@@ -55,15 +55,15 @@ dt, dd {
 dd {
     display: flex;
     margin-left: 0;
-    margin: 3px;
+    margin: 5px;
 }
 dd label {
-    padding: 3px 0;
+    padding: 5px 0;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 dd label input[type="checkbox"] {
-    margin: 6px 6px;
+    margin: 10px 10px;
 }
 dd input[type="search"] {
     margin-left: 1.5rem;
