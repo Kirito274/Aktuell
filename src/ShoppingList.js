@@ -9,9 +9,25 @@ class ShoppingList extends React.Component {
     constructor(props) {
         super(props)
         this.initialisieren()
+        this.state = {
+            aktiveGruppe: null,
+            showGruppenDialog: false,
+            showSortierDialog: false,
+            einkaufenAufgeklappt: true,
+            erledigtAufgeklappt: false
+        }
     }
 
     initialisieren() {
+
+        this.state = {
+            aktiveGruppe: null,
+            showGruppenDialog: false,
+            showSortierDialog: false,
+            einkaufenAufgeklappt: true,
+            erledigtAufgeklappt: false
+        }
+
         let Aufbau = App.gruppeHinzufuegen("Aufbauspiele")
         let Aufbau2 = Aufbau.artikelHinzufuegen("Total War Warhammer")
         Aufbau2.gekauft = true
@@ -49,6 +65,7 @@ class ShoppingList extends React.Component {
         let Soulslike6 = Soulslike.artikelHinzufuegen("Salt and Santuary")
         Soulslike6.gekauft = false
     }
+
 
     render() {
         let nochZuKaufen = []
