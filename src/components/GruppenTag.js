@@ -18,9 +18,9 @@ class GruppenTag extends React.Component {
         }
 
         let artikelArray = []
-        for (const film of gruppe.artikelListe) {
-            if (film.gekauft == this.props.gekauft) {
-                artikelArray.push(<ArtikelTag artikel={film} key={film.id}/>)
+        for (const game of gruppe.artikelListe) {
+            if (game.gekauft == this.props.gekauft) {
+                artikelArray.push(<ArtikelTag artikel={game} key={game.id}/>)
             }
         }
         return (

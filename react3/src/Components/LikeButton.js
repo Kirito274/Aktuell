@@ -1,10 +1,13 @@
 import React from 'react';
 
-class LikeButton extends React.Component{
+class LikeButton extends React.Component {
     constructor(props) {
         super(props); // Modify le todo
         /* ToDo: Setze hier den initialen state von liked auf false */
+        this.state = {
+            liked: false
 
+        }
     }
 
     render = () => {
@@ -17,7 +20,7 @@ class LikeButton extends React.Component{
         }
         return (
             <div>
-                <button onClick={() => this.setState({ liked: true }) }>
+                <button onClick={() => this.setState({liked: true})}>
                     Gefällt mir!
                 </button>
                 <p></p>

@@ -1,5 +1,3 @@
-
-
 import React from 'react'
 import GruppenTag from './components/GruppenTag'
 import App from './model/Shopping'
@@ -27,7 +25,6 @@ class ShoppingList extends React.Component {
             einkaufenAufgeklappt: true,
             erledigtAufgeklappt: false
         }
-
         let Aufbau = App.gruppeHinzufuegen("Aufbauspiele")
         let Aufbau2 = Aufbau.artikelHinzufuegen("Total War Warhammer")
         Aufbau2.gekauft = true
@@ -66,30 +63,39 @@ class ShoppingList extends React.Component {
         Soulslike6.gekauft = false
     }
 
+    einkaufenAufZuKlappen() {
+        let neuerZustand = !this.state.einkaufenAufgeklappt
+        this.setState({einkaufenAufgeklappt: neuerZustand})
+    }
+
+    erledigtAufZuKlappen() {
+        let neuerZustand = !this.state.erledigtAufgeklappt
+        this.setState({erledigtAufgeklappt: neuerZustand})
+    }
 
     render() {
         let nochZuKaufen = []
-        for (const gruppe of App.gruppenListe) {
-            nochZuKaufen.push(<GruppenTag
-                key={gruppe.id}
-                gruppe={gruppe}
-                gekauft={false}/>)
+        if (this.state.einkaufenAufgeklappt == true) {
+            for (const gruppe of App.gruppenListe) {
+                nochZuKaufen.push(<GruppenTag
+                    key={gruppe.id}
+                    gruppe={gruppe}
+                    gekauft={false}/>)
+            }
         }
-
-
         let schonGekauft = []
-        for (const gruppe of App.gruppenListe) {
-            schonGekauft.push(<GruppenTag
-                key={gruppe.id}
-                gruppe={gruppe}
-                gekauft={true}/>)
+        if (this.state.erledigtAufgeklappt == false) {
+            for (const gruppe of App.gruppenListe) {
+                schonGekauft.push(<GruppenTag
+                    key={gruppe.id}
+                    gruppe={gruppe}
+                    gekauft={true}/>)
+            }
         }
-
         return (
             <div id="container">
-                {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
                 <header>
-                    <h1>Shoppinglist for Games</h1>
+                    <h1>Gamelist</h1>
                     <label
                         className="mdc-text-field mdc-text-field--filled mdc-text-field--with-trailing-icon mdc-text-field--no-label">
                         <span className="mdc-text-field__ripple"></span>
@@ -104,7 +110,9 @@ class ShoppingList extends React.Component {
                 <main>
                     <section>
                         <h2>Noch zu kaufen
-                            <i className="material-icons">expand_less</i>
+                            <i onClick={() => this.einkaufenAufZuKlappen()} className="material-icons">
+                                {this.state.einkaufenAufgeklappt ? 'expand_more' : 'expand_less'}
+                            </i>
                         </h2>
                         <dl>
                             {nochZuKaufen}
@@ -113,7 +121,9 @@ class ShoppingList extends React.Component {
                     <hr/>
                     <section>
                         <h2>Schon gekauft
-                            <i className="material-icons">expand_less</i>
+                            <i onClick={() => this.erledigtAufZuKlappen()} className="material-icons">
+                                {this.state.erledigtAufgeklappt ? 'expand_more' : 'expand_less'}
+                            </i>
                         </h2>
                         <dl>
                             {schonGekauft}
@@ -121,6 +131,7 @@ class ShoppingList extends React.Component {
                     </section>
                 </main>
                 <hr/>
+
                 <footer>
                     <button className="mdc-button mdc-button--raised">
                         <span className="material-icons">bookmark_add</span>
