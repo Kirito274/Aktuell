@@ -1,6 +1,6 @@
 import React from 'react'
 import GruppenTag from './components/GruppenTag'
-import App from './model/Shopping'
+import Modell from './model/Shopping'
 
 
 class ShoppingList extends React.Component {
@@ -25,7 +25,7 @@ class ShoppingList extends React.Component {
             einkaufenAufgeklappt: true,
             erledigtAufgeklappt: false
         }
-        let Aufbau = App.gruppeHinzufuegen("Aufbauspiele")
+        let Aufbau = Modell.gruppeHinzufuegen("Aufbauspiele")
         let Aufbau2 = Aufbau.artikelHinzufuegen("Total War Warhammer")
         Aufbau2.gekauft = true
         let Aufbau3 = Aufbau.artikelHinzufuegen("Total War Warhammer 3")
@@ -35,7 +35,7 @@ class ShoppingList extends React.Component {
         let Aufbau5 = Aufbau.artikelHinzufuegen("Total War A Troy Saga")
         Aufbau5.gekauft = false
         Aufbau.artikelHinzufuegen("Total War Warhammer 2 + DLC´s")
-        let Horror = App.gruppeHinzufuegen("Horrorgames")
+        let Horror = Modell.gruppeHinzufuegen("Horrorgames")
         let Horror2 = Horror.artikelHinzufuegen("Dreadout 2")
         Horror2.gekauft = false
         let Horror3 = Horror.artikelHinzufuegen("Dreadout")
@@ -47,7 +47,7 @@ class ShoppingList extends React.Component {
         let game2 = Horror.artikelHinzufuegen("Elden Ring")
         game2.gekauft = true
         Horror.artikelHinzufuegen("Visage")
-        let Soulslike = App.gruppeHinzufuegen("Soulslikegames")
+        let Soulslike = Modell.gruppeHinzufuegen("Soulslikegames")
         let game3 = Soulslike.artikelHinzufuegen("Nioh")
         game3.gekauft = true
         Soulslike.artikelHinzufuegen("Nioh 2")
@@ -76,7 +76,7 @@ class ShoppingList extends React.Component {
     render() {
         let nochZuKaufen = []
         if (this.state.einkaufenAufgeklappt == true) {
-            for (const gruppe of App.gruppenListe) {
+            for (const gruppe of Modell.gruppenListe) {
                 nochZuKaufen.push(<GruppenTag
                     key={gruppe.id}
                     gruppe={gruppe}
@@ -85,7 +85,7 @@ class ShoppingList extends React.Component {
         }
         let schonGekauft = []
         if (this.state.erledigtAufgeklappt == false) {
-            for (const gruppe of App.gruppenListe) {
+            for (const gruppe of Modell.gruppenListe) {
                 schonGekauft.push(<GruppenTag
                     key={gruppe.id}
                     gruppe={gruppe}

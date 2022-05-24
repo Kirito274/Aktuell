@@ -116,6 +116,6 @@ class Shopping {
   }
 }
 
-const App = new Shopping()
+const Modell = new Shopping()
 
-export default App
+export default Modell
