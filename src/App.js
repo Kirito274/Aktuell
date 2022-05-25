@@ -1,9 +1,9 @@
 import React from 'react'
 import GruppenTag from './components/GruppenTag'
-import App from './model/Shopping'
+import Modell from './model/Shopping'
 
 
-class ShoppingList extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props)
     this.initialisieren()
@@ -55,26 +55,42 @@ class ShoppingList extends React.Component {
     Soulslike6.gekauft = false
   }
 
+
   einkaufenAufZuKlappen() {
     let neuerZustand = !this.state.einkaufenAufgeklappt
     this.setState({einkaufenAufgeklappt: neuerZustand})
   }
 
   erledigtAufZuKlappen() {
-  // ToDo: fertig programmieren
-      let neuerZustand = !this.state.erledigtAufgeklappt
-      this.setState({erledigtAufgeklappt: neuerZustand})
-    }
+    // ToDo: fertig programmieren
+    let neuerZustand = !this.state.erledigtAufgeklappt
+    this.setState({erledigtAufgeklappt: neuerZustand})
+  }
 
+  // ToDo: diese Methode als 'checkHandler' an GruppenTag und ArtikelTag durchreichen
+  artikelChecken = (artikel) => {
+    // artikel.gekauft 'umpolen'
+    // 'aktion' abhängig von 'artikel.gekauft' auf "erledigt" oder "reaktiviert" setzen
+    // App.informieren mit 'aktion'
+    // 'state' aktualisieren
+  }
+
+  setAktiveGruppe(gruppe) {
+    Modell.aktiveGruppe = gruppe
+    Modell.informieren("[App] Gruppe \"" + gruppe.name + "\" ist nun aktiv")
+    this.setState({aktiveGruppe: Modell.aktiveGruppe})
+  }
 
   render() {
     let nochZuKaufen = []
     if (this.state.einkaufenAufgeklappt == true) {
-      for (const gruppe of App.gruppenListe) {
+      for (const gruppe of Modell.gruppenListe) {
         nochZuKaufen.push(<GruppenTag
-          key={gruppe.id}
-          gruppe={gruppe}
-          gekauft={false}/>)
+            key={gruppe.id}
+            gruppe={gruppe}
+            gekauft={false}
+            aktiv={gruppe == this.state.aktiveGruppe}
+            aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}/>)
       }
     }
 
@@ -92,6 +108,7 @@ class ShoppingList extends React.Component {
 
     return (
       <div id="container">
+        {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
         <header>
           <h1>Gamelist</h1>
           <label
@@ -150,4 +167,4 @@ class ShoppingList extends React.Component {
   }
 }
 
-export default ShoppingList
+export default App
