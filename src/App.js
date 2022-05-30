@@ -74,7 +74,7 @@ class App extends React.Component {
         if (artikel.gekauft == true) {
             aktion = "erledigt"
         } else {
-            aktion = "unerledigt"
+            aktion = "reaktiviert"
         }
         Modell.informieren("${artikel.name} ist ${aktion)")
         this.setState(this.state)
@@ -129,7 +129,7 @@ class App extends React.Component {
             <div id="container">
                 {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
                 <header>
-                    <h1>Gamelist</h1>
+                    <h1>Gamelist for Pc</h1>
                     <label
                         className="mdc-text-field mdc-text-field--filled mdc-text-field--with-trailing-icon mdc-text-field--no-label">
                         <span className="mdc-text-field__ripple"></span>
