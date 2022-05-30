@@ -1,5 +1,6 @@
 import React from 'react'
 import GruppenTag from './components/GruppenTag'
+import GruppenDialog from './components/GruppenDialog'
 import Modell from './model/Shopping'
 
 
@@ -125,6 +126,13 @@ class App extends React.Component {
             }
         }
 
+      let gruppenDialog = ""
+      if (this.state.showGruppenDialog) {
+        gruppenDialog = <GruppenDialog
+            gruppenListe={Modell.gruppenListe}
+            onDialogClose={() => this.setState({showGruppenDialog: false})}/>
+      }
+
         return (
             <div id="container">
                 {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
@@ -143,7 +151,6 @@ class App extends React.Component {
                     </label>
                 </header>
                 <hr/>
-
                 <main>
                     <section>
                         <h2>Noch zu kaufen
@@ -169,23 +176,26 @@ class App extends React.Component {
                 </main>
                 <hr/>
 
-                <footer>
-                    <button className="mdc-button mdc-button--raised">
-                        <span className="material-icons">bookmark_add</span>
-                        <span className="mdc-button__ripple"></span> Gruppen
-                    </button>
-                    <button className="mdc-button mdc-button--raised">
-                        <span className="material-icons">sort</span>
-                        <span className="mdc-button__ripple"></span> Sort
-                    </button>
-                    <button className="mdc-button mdc-button--raised">
-                        <span className="material-icons">settings</span>
-                        <span className="mdc-button__ripple"></span> Setup
-                    </button>
-                </footer>
-            </div>
-        )
-    }
+        <footer>
+          <button className="mdc-button mdc-button--raised"
+                  onClick={() => this.setState({showGruppenDialog: true})}>
+            <span className="material-icons">bookmark_add</span>
+            <span className="mdc-button__ripple"></span> Gruppen
+          </button>
+          <button className="mdc-button mdc-button--raised">
+            <span className="material-icons">sort</span>
+            <span className="mdc-button__ripple"></span> Sort
+          </button>
+          <button className="mdc-button mdc-button--raised">
+            <span className="material-icons">settings</span>
+            <span className="mdc-button__ripple"></span> Setup
+          </button>
+        </footer>
+
+        {gruppenDialog}
+      </div>
+    )
+  }
 }
 
 export default App
