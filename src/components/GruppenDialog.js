@@ -12,20 +12,10 @@ class GruppenDialog extends React.Component {
 
   gruppeHinzufuegen() {
     // ToDo: implementieren
-    let eingabe = document.getElementById("eingabe")
-    if (eingabe.value.trim().length > 0) {
-      Modell.gruppeHinzufuegen(eingabe.value)
-      this.setState({gruppenListe: Modell.gruppenListe})
-    }
-    eingabe.value = ""
-    eingabe.focus()
   }
 
   gruppeEntfernen(name) {
     // ToDo: implementieren
-    Modell.gruppeEntfernen(name)
-    this.setState(this.state)
-
   }
 
   render() {
@@ -55,7 +45,7 @@ class GruppenDialog extends React.Component {
                 <span className="mdc-text-field__ripple"></span>
                 <input className="mdc-text-field__input" type="search"
                        id="eingabe" placeholder="Gruppe hinzufügen"
-                       onKeyUp={e => (e.keyCode == 13) ? this.gruppeHinzufuegen() : ''}/>
+                       onKeyPress={e => (e.key == 'Enter') ? this.gruppeHinzufuegen() : ''}/>
                 <span className="mdc-line-ripple"></span>
                 <i className="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
                    tabIndex="0" role="button"

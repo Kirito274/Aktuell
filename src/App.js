@@ -1,21 +1,22 @@
 import React from 'react'
+import Modell from './model/Shopping'
 import GruppenTag from './components/GruppenTag'
 import GruppenDialog from './components/GruppenDialog'
-import Modell from './model/Shopping'
+import SortierDialog from "./components/SortierDialog";
 
 
 class App extends React.Component {
-    constructor(props) {
-        super(props)
-        this.initialisieren()
-        this.state = {
-            aktiveGruppe: null,
-            showGruppenDialog: false,
-            showSortierDialog: false,
-            einkaufenAufgeklappt: true,
-            erledigtAufgeklappt: false
-        }
+  constructor(props) {
+    super(props)
+    this.initialisieren()
+    this.state = {
+      aktiveGruppe: null,
+      showGruppenDialog: false,
+      showSortierDialog: false,
+      einkaufenAufgeklappt: true,
+      erledigtAufgeklappt: false
     }
+  }
 
     initialisieren() {
         let Aufbau = Modell.gruppeHinzufuegen("Aufbauspiele")
@@ -57,10 +58,10 @@ class App extends React.Component {
     }
 
 
-    einkaufenAufZuKlappen() {
-        let neuerZustand = !this.state.einkaufenAufgeklappt
-        this.setState({einkaufenAufgeklappt: neuerZustand})
-    }
+  einkaufenAufZuKlappen() {
+    let neuerZustand = !this.state.einkaufenAufgeklappt
+    this.setState({einkaufenAufgeklappt: neuerZustand})
+  }
 
     erledigtAufZuKlappen() {
         let neuerZustand = !this.state.erledigtAufgeklappt
@@ -82,57 +83,112 @@ class App extends React.Component {
 
     }
 
-    artikelHinzufuegen() {
-        // ToDo: implementiere diese Methode
-        let eingabe = document.getElementById("artikelEingabe")
-        if (eingabe.value.trim().length > 0) {
-            Modell.aktiveGruppe.artikelHinzufuegen(eingabe.value)
-            this.setState(this.state)
-        }
-        eingabe.value = ""
-        eingabe.focus()
+  artikelHinzufuegen() {
+    // ToDo: implementiere diese Methode
+    const eingabe = document.getElementById("artikelEingabe")
+    const artikelName = eingabe.value.trim()
+    if (artikelName.length > 0) {
+      Modell.aktiveGruppe.artikelHinzufuegen(artikelName)
+      this.setState(this.state)
     }
+    eingabe.value = ""
+    eingabe.focus()
+  }
 
-    setAktiveGruppe(gruppe) {
-        Modell.aktiveGruppe = gruppe
-        Modell.informieren("[App] Gruppe \"" + gruppe.name + "\" ist nun aktiv")
-        this.setState({aktiveGruppe: Modell.aktiveGruppe})
+  setAktiveGruppe(gruppe) {
+    Modell.aktiveGruppe = gruppe
+    Modell.informieren("[App] Gruppe \"" + gruppe.name + "\" ist nun aktiv")
+    this.setState({aktiveGruppe: Modell.aktiveGruppe})
+  }
+
+  closeSortierDialog = (reihenfolge, sortieren) => {
+    if (sortieren) {
+      Modell.sortieren(reihenfolge)
     }
+    this.setState({showSortierDialog: false})
+  }
 
-    render() {
-        let nochZuKaufen = []
-        if (this.state.einkaufenAufgeklappt == true) {
-            for (const gruppe of Modell.gruppenListe) {
-                nochZuKaufen.push(<GruppenTag
-                    key={gruppe.id}
-                    gruppe={gruppe}
-                    gekauft={false}
-                    aktiv={gruppe == this.state.aktiveGruppe}
-                    aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
-                    checkHandler={this.artikelChecken}/>)
-            }
-        }
-
-
-        let schonGekauft = []
-        if (this.state.erledigtAufgeklappt) {
-            for (const gruppe of Modell.gruppenListe) {
-                schonGekauft.push(<GruppenTag
-                    key={gruppe.id}
-                    gruppe={gruppe}
-                    gekauft={true}
-                    aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
-                    checkHandler={this.artikelChecken}/>)
-            }
-        }
-
-      let gruppenDialog = ""
-      if (this.state.showGruppenDialog) {
-        gruppenDialog = <GruppenDialog
-            gruppenListe={Modell.gruppenListe}
-            onDialogClose={() => this.setState({showGruppenDialog: false})}/>
+  render() {
+    let nochZuKaufen = []
+    if (this.state.einkaufenAufgeklappt == true) {
+      for (const gruppe of Modell.gruppenListe) {
+        nochZuKaufen.push(<GruppenTag
+          key={gruppe.id}
+          gruppe={gruppe}
+          gekauft={false}
+          aktiv={gruppe == this.state.aktiveGruppe}
+          aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
+          checkHandler={this.artikelChecken}/>)
       }
+    }
 
+    let schonGekauft = []
+    if (this.state.erledigtAufgeklappt) {
+      for (const gruppe of Modell.gruppenListe) {
+        schonGekauft.push(<GruppenTag
+          key={gruppe.id}
+          gruppe={gruppe}
+          gekauft={true}
+          aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
+          checkHandler={this.artikelChecken}/>)
+      }
+    }
+
+    let gruppenDialog = ""
+    if (this.state.showGruppenDialog) {
+      gruppenDialog = <GruppenDialog
+        gruppenListe={Modell.gruppenListe}
+        onDialogClose={() => this.setState({showGruppenDialog: false})}/>
+    }
+
+    let sortierDialog = ""
+    if (this.state.showSortierDialog) {
+      sortierDialog = <SortierDialog onDialogClose={this.closeSortierDialog}/>
+    }
+
+    return (
+      <div id="container">
+        <header>
+          <h1>Watchlist</h1>
+          <label
+            className="mdc-text-field mdc-text-field--filled mdc-text-field--with-trailing-icon mdc-text-field--no-label">
+            <span className="mdc-text-field__ripple"></span>
+            <input className="mdc-text-field__input" type="search"
+                   id="artikelEingabe" placeholder="Artikel hinzufügen"
+                   onKeyPress={e => (e.key == 'Enter') ? this.artikelHinzufuegen() : ''}/>
+            <span className="mdc-line-ripple"></span>
+            <i className="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
+               tabIndex="0" role="button"
+               onClick={() => this.artikelHinzufuegen()}>add_circle</i>
+          </label>
+
+        </header>
+        <hr/>
+
+        <main>
+          <section>
+            <h2>Noch zu kaufen
+              <i onClick={() => this.einkaufenAufZuKlappen()} className="material-icons">
+                {this.state.einkaufenAufgeklappt ? 'expand_more' : 'expand_less'}
+              </i>
+            </h2>
+            <dl>
+              {nochZuKaufen}
+            </dl>
+          </section>
+          <hr/>
+          <section>
+            <h2>Schon gekauft
+              <i onClick={() => this.erledigtAufZuKlappen()} className="material-icons">
+                {this.state.erledigtAufgeklappt ? 'expand_more' : 'expand_less'}
+              </i>
+            </h2>
+            <dl>
+              {schonGekauft}
+            </dl>
+          </section>
+        </main>
+        <hr/>
         return (
             <div id="container">
                 {/* ToDo: füge hier drunter Deinen HTML-Code ein */}
