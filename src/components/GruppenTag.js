@@ -1,5 +1,19 @@
 import React from 'react'
 import ArtikelTag from './ArtikelTag'
+import PropTypes from "prop-types";
+
+
+
+/**
+ * Diese Komponente repräsentiert eine Artikelgruppe
+ * @component
+ * @property {Boolean} aktiv - setzt diese Gruppe als `aktiveGruppe` in der App.js
+ * @property {Function} aktiveGruppeHandler - setzt diese Gruppe als `aktiveGruppe` in der {@link ../App}
+ * @property {Function} checkHandler - erledigt und reaktiviert Artikel; wird an den {@link ArtikelTag} durchgereicht
+ * @property {Boolean} gekauft - steuert, ob diese Gruppe in der "Gekauft-" oder "NochZuKaufen-Liste" erscheint
+ * @property {Gruppe} gruppe - die darzustellende Gruppe
+ */
+
 
 class GruppenTag extends React.Component {
   constructor(props) {
