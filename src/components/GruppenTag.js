@@ -9,6 +9,12 @@ class GruppenTag extends React.Component {
     }
   }
 
+  componentDidMount() {
+    let aufgeklappt = localStorage.getItem("gruppe-" + this.props.gruppe.id)
+    aufgeklappt = (aufgeklappt == null) ? true : JSON.parse(aufgeklappt)
+    this.setState({aufgeklappt: aufgeklappt})
+  }
+
   artikelEntfernen(name) {
     this.props.gruppe.artikelEntfernen(name)
     this.props.aktiveGruppeHandler(this.props.gruppe)
@@ -16,6 +22,8 @@ class GruppenTag extends React.Component {
   }
 
   aufZuKlappen() {
+    const neuerZustand = !this.state.aufgeklappt
+    localStorage.setItem("gruppe-" + this.props.gruppe.id, neuerZustand)
     this.setState({aufgeklappt: !this.state.aufgeklappt})
   }
 
@@ -56,4 +64,12 @@ class GruppenTag extends React.Component {
   }
 }
 
+GruppenTag.propTypes = {
+  aktiv: PropTypes.bool,
+  aktiveGruppeHandler: PropTypes.func.isRequired,
+  checkHandler: PropTypes.func.isRequired,
+  gekauft: PropTypes.bool.isRequired,
+  gruppe: PropTypes.object.isRequired,
+
+}
 export default GruppenTag

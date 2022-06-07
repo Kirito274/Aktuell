@@ -18,6 +18,21 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    Modell.laden()
+    // Auf-/Zu-Klapp-Zustand aus dem LocalStorage laden
+    let einkaufenAufgeklappt = localStorage.getItem("einkaufenAufgeklappt")
+    einkaufenAufgeklappt = (einkaufenAufgeklappt == null) ? true : JSON.parse(einkaufenAufgeklappt)
+
+    let erledigtAufgeklappt = localStorage.getItem("erledigtAufgeklappt")
+    erledigtAufgeklappt = (erledigtAufgeklappt == null) ? false : JSON.parse(erledigtAufgeklappt)
+
+    this.setState({
+      aktiveGruppe: Modell.aktiveGruppe,
+      einkaufenAufgeklappt: einkaufenAufgeklappt,
+      erledigtAufgeklappt: erledigtAufgeklappt
+    })
+  }
     initialisieren() {
         let Aufbau = Modell.gruppeHinzufuegen("Aufbauspiele")
         let Aufbau2 = Aufbau.artikelHinzufuegen("Total War Warhammer")
@@ -59,29 +74,34 @@ class App extends React.Component {
 
 
   einkaufenAufZuKlappen() {
-    let neuerZustand = !this.state.einkaufenAufgeklappt
+    const neuerZustand = !this.state.einkaufenAufgeklappt
+    localStorage.setItem("einkaufenAufgeklappt", neuerZustand)
     this.setState({einkaufenAufgeklappt: neuerZustand})
   }
 
-    erledigtAufZuKlappen() {
-        let neuerZustand = !this.state.erledigtAufgeklappt
-        this.setState({erledigtAufgeklappt: neuerZustand})
+  erledigtAufZuKlappen() {
+    const neuerZustand = !this.state.erledigtAufgeklappt
+    localStorage.setItem("erledigtAufgeklappt", neuerZustand)
+    this.setState({erledigtAufgeklappt: neuerZustand})
+  }
+
+  lsLoeschen() {
+    if (confirm("Wollen Sie wirklich alles löschen?!")) {
+      localStorage.clear()
     }
+  }
 
-    // ToDo: diese Methode als 'checkHandler' an GruppenTag und ArtikelTag durchreichen
-    artikelChecken = (artikel) => {
+  /**
+   * Hakt einen Artikel ab oder reaktiviert ihn
+   * @param {Artikel} artikel - der aktuelle Artikel, der gerade abgehakt oder reaktiviert wird
+   */
 
-        artikel.gekauft = !artikel.gekauft
-        let aktion
-        if (artikel.gekauft == true) {
-            aktion = "erledigt"
-        } else {
-            aktion = "reaktiviert"
-        }
-        Modell.informieren("${artikel.name} ist ${aktion)")
-        this.setState(this.state)
-
-    }
+  artikelChecken = (artikel) => {
+    artikel.gekauft = !artikel.gekauft
+    const aktion = (artikel.gekauft) ? "erledigt" : "reaktiviert"
+    Modell.informieren("[App] Artikel \"" + artikel.name + "\" wurde " + aktion)
+    this.setState(this.state)
+  }
 
   artikelHinzufuegen() {
     // ToDo: implementiere diese Methode
@@ -112,25 +132,29 @@ class App extends React.Component {
     let nochZuKaufen = []
     if (this.state.einkaufenAufgeklappt == true) {
       for (const gruppe of Modell.gruppenListe) {
-        nochZuKaufen.push(<GruppenTag
-          key={gruppe.id}
-          gruppe={gruppe}
-          gekauft={false}
-          aktiv={gruppe == this.state.aktiveGruppe}
-          aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
-          checkHandler={this.artikelChecken}/>)
+        nochZuKaufen.push(
+          <GruppenTag
+            key={gruppe.id}
+            aktiv={gruppe == this.state.aktiveGruppe}
+            aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
+            checkHandler={this.artikelChecken}
+            gekauft={false}
+            gruppe={gruppe}
+          />)
       }
     }
 
     let schonGekauft = []
     if (this.state.erledigtAufgeklappt) {
       for (const gruppe of Modell.gruppenListe) {
-        schonGekauft.push(<GruppenTag
-          key={gruppe.id}
-          gruppe={gruppe}
-          gekauft={true}
-          aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
-          checkHandler={this.artikelChecken}/>)
+        schonGekauft.push(
+          <GruppenTag
+            key={gruppe.id}
+            aktiveGruppeHandler={() => this.setAktiveGruppe(gruppe)}
+            checkHandler={this.artikelChecken}
+            gekauft={true}
+            gruppe={gruppe}
+          />)
       }
     }
 
@@ -242,13 +266,15 @@ class App extends React.Component {
             <span className="material-icons">sort</span>
             <span className="mdc-button__ripple"></span> Sort
           </button>
-          <button className="mdc-button mdc-button--raised">
-            <span className="material-icons">settings</span>
-            <span className="mdc-button__ripple"></span> Setup
+          <button className="mdc-button mdc-button--raised"
+                  onClick={this.lsLoeschen}>
+            <span className="material-icons">clear_all</span>
+            <span className="mdc-button__ripple"></span> Clear
           </button>
         </footer>
 
         {gruppenDialog}
+        {sortierDialog}
       </div>
     )
   }
